@@ -1,0 +1,37 @@
+/* basic reset & fonts */
+*{box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f7f7f9;color:#222}
+a{color:inherit;text-decoration:none}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#2b6cb0;color:white}
+.logo a{color:white;font-weight:700}
+.topbar nav a{margin-left:12px;padding:6px 10px;border-radius:6px}
+.topbar nav a:hover{background:rgba(255,255,255,0.12)}
+
+.container{max-width:1100px;margin:20px auto;padding:0 12px}
+.cards{display:flex;gap:12px;flex-wrap:wrap}
+.card{background:white;padding:14px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:14px}
+.card h3{margin-top:0}
+.table{width:100%;border-collapse:collapse;margin-top:8px}
+.table th,.table td{border:1px solid #e6e6e6;padding:8px;text-align:left}
+.form-inline{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.form-inline input,.form-inline select{padding:6px;border:1px solid #ccc;border-radius:6px}
+.form-inline button{padding:6px 10px;border:none;background:#2b6cb0;color:white;border-radius:6px;cursor:pointer}
+.form-inline button:hover{opacity:0.95}
+
+/* inline edit details */
+.inline-edit summary{cursor:pointer;margin-bottom:6px}
+.inline-edit form{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+
+.flash-area{margin-bottom:12px}
+.flash{padding:10px;border-radius:6px;margin-bottom:6px}
+.flash.success{background:#e6ffed;border:1px solid #2f855a}
+.flash.error{background:#ffe6e6;border:1px solid #e53e3e}
+
+.footer{padding:12px;text-align:center;color:#666;margin-top:18px;font-size:14px}
+
+/* responsive */
+@media (max-width:700px){
+  .form-inline{flex-direction:column;align-items:stretch}
+  .cards{flex-direction:column}
+}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Members</h2>
+  <section class="card">
+    <h3>Add Member</h3>
+    <form action="{{ url_for('add_member') }}" method="post" class="form-inline">
+      <input name="name" placeholder="Name" required>
+      <input name="contact" placeholder="Contact">
+      <button type="submit">Add</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h3>Search</h3>
+    <input id="memberSearch" placeholder="Search name or contact">
+    <div id="memberResults"></div>
+  </section>
+
+  <section class="card">
+    <h3>All Members</h3>
+    <table class="table">
+      <thead><tr><th>ID</th><th>Name</th><th>Contact</th><th>Actions</th></tr></thead>
+      <tbody>
+        {% for m in members %}
+        <tr>
+          <td>{{ m.MemberID }}</td>
+          <td>{{ m.Name }}</td>
+          <td>{{ m.Contact }}</td>
+          <td>
+            <details class="inline-edit">
+              <summary>Edit</summary>
+              <form action="{{ url_for('update_member', member_id=m.MemberID) }}" method="post">
+                <input name="name" value="{{ m.Name }}" required>
+                <input name="contact" value="{{ m.Contact }}">
+                <button type="submit">Save</button>
+              </form>
+            </details>
+
+            <form action="{{ url_for('delete_member', member_id=m.MemberID) }}" method="post" style="display:inline">
+              <button onclick="return confirm('Delete this member?')">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <section>
+    <h2>Welcome</h2>
+    <p>Use the navigation to manage books, members and borrowings.</p>
+    <div class="cards">
+      <a class="card" href="{{ url_for('books') }}">Manage Books</a>
+      <a class="card" href="{{ url_for('members') }}">Manage Members</a>
+      <a class="card" href="{{ url_for('borrowings') }}">Manage Borrowings</a>
+    </div>
+  </section>
+{% endblock %}

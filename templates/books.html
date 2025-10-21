@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Books</h2>
+
+  <section class="card">
+    <h3>Add Book</h3>
+    <form action="{{ url_for('add_book') }}" method="post" class="form-inline">
+      <input name="title" placeholder="Title" required>
+      <input name="author" placeholder="Author" required>
+      <input name="category" placeholder="Category">
+      <input name="copies" type="number" min="1" placeholder="Copies" value="1">
+      <button type="submit">Add</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h3>Search</h3>
+    <input id="bookSearch" placeholder="Search title, author or category">
+    <div id="bookResults"></div>
+  </section>
+
+  <section class="card">
+    <h3>All Books</h3>
+    <table class="table">
+      <thead>
+        <tr><th>ID</th><th>Title</th><th>Author</th><th>Category</th><th>Copies</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        {% for b in books %}
+        <tr>
+          <td>{{ b.BookID }}</td>
+          <td>{{ b.Title }}</td>
+          <td>{{ b.Author }}</td>
+          <td>{{ b.Category }}</td>
+          <td>{{ b.Copies }}</td>
+          <td>
+            <!-- Edit inline form -->
+            <details class="inline-edit">
+              <summary>Edit</summary>
+              <form action="{{ url_for('update_book', book_id=b.BookID) }}" method="post">
+                <input name="title" value="{{ b.Title }}" required>
+                <input name="author" value="{{ b.Author }}" required>
+                <input name="category" value="{{ b.Category }}">
+                <input name="copies" type="number" min="0" value="{{ b.Copies }}">
+                <button type="submit">Save</button>
+              </form>
+            </details>
+
+            <form action="{{ url_for('delete_book', book_id=b.BookID) }}" method="post" style="display:inline">
+              <button onclick="return confirm('Delete this book?')">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

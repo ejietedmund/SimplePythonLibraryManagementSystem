@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Borrowings</h2>
+
+  <section class="card">
+    <h3>Record Borrowing</h3>
+    <form action="{{ url_for('add_borrowing') }}" method="post" class="form-inline">
+      <select name="member_id" required>
+        <option value="">Select Member</option>
+        {% for m in members %}
+          <option value="{{ m.MemberID }}">{{ m.Name }}</option>
+        {% endfor %}
+      </select>
+
+      <select name="book_id" required>
+        <option value="">Select Book</option>
+        {% for bk in books %}
+          <option value="{{ bk.BookID }}">{{ bk.Title }} ({{ bk.Copies }} copies)</option>
+        {% endfor %}
+      </select>
+
+      <input name="borrow_date" type="date" value="{{ "" }}" >
+      <button type="submit">Borrow</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h3>Search Borrowings</h3>
+    <input id="borrowSearch" placeholder="Search member or book">
+    <div id="borrowResults"></div>
+  </section>
+
+  <section class="card">
+    <h3>All Borrowings</h3>
+    <table class="table">
+      <thead>
+        <tr><th>ID</th><th>Member</th><th>Book</th><th>BorrowDate</th><th>ReturnDate</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        {% for br in borrowings %}
+        <tr>
+          <td>{{ br.BorrowID }}</td>
+          <td>{{ br.MemberName }}</td>
+          <td>{{ br.BookTitle }}</td>
+          <td>{{ br.BorrowDate }}</td>
+          <td>{{ br.ReturnDate or '' }}</td>
+          <td>
+            {% if not br.ReturnDate %}
+            <form action="{{ url_for('return_book', borrow_id=br.BorrowID) }}" method="post" style="display:inline">
+              <input name="return_date" type="date" value="">
+              <button type="submit">Return</button>
+            </form>
+            {% endif %}
+            <form action="{{ url_for('delete_borrowing', borrow_id=br.BorrowID) }}" method="post" style="display:inline">
+              <button onclick="return confirm('Delete borrow record?')">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}
